@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Laravel</title>
 
@@ -21,6 +22,7 @@
         </style>
     </head>
     <body class="antialiased">
+        <div id='app'></div>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -116,7 +118,9 @@
                                 <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
 
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
                             <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
                                 Sponsor
                             </a>
                         </div>
@@ -128,5 +132,10 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script>
+            Echo.private('events')
+                .listen('RealTimeMessage', (e) => console.log('Private RealTimeMessage: ' + e.message));
+        </script>
     </body>
 </html>
